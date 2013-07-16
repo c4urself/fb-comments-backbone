@@ -9,7 +9,12 @@ cafepress.comments = (function (Backbone, $) {
     // Make a model - a container to hold our comments
     // The fields in this model are automatically
     // assigned by the server's response
-    var Comment = Backbone.Model.extend({});
+    var Comment = Backbone.Model.extend({
+        prettyDate: function (timestamp) {
+            var d = new Date(timestamp);
+            return (d.getMonth() + 1) + '/' + d.getUTCDate() + '/' + d.getUTCFullYear();
+        }
+    });
 
     // Collection of the above model. Here we define
     // the endpoint and give the collection some guidance
@@ -37,28 +42,32 @@ cafepress.comments = (function (Backbone, $) {
         className: 'comment',
 
         events: {
-            'mouseover': 'on',
-            'mouseout': 'off'
+            'mouseenter': 'on',
+            'mouseleave': 'off'
         },
 
         initialize: function () {
+            this.ctx = this.model.toJSON();
+            this.ctx.prettyTime = this.model.prettyDate(this.ctx.created_time);
             _.bindAll(this, 'on', 'off'); // Make sure 'this' is mapped to the View
         },
 
         on: function () {
-            var ctx = this.model.toJSON();
             this.$el.addClass('on');
-            this.$el.html('<span class="comment">' + ctx.message + '</span>');
+            this.$('.message').show();
+            this.$('.date').hide();
+            this.$('.name').hide();
         },
 
         off: function () {
             this.$el.removeClass('on');
-            this.render();
+            this.$('.message').hide();
+            this.$('.date').show();
+            this.$('.name').show();
         },
 
         render: function () {
-            var ctx = this.model.toJSON();
-            this.$el.html('<span class="timestamp">' + ctx.created_time + '</span><span class="name">' + ctx.from.name + '</span>')
+            this.$el.html('<span class="message">"' + this.ctx.message + '"</span><span class="date">' + this.ctx.prettyTime + '</span><span class="name">' + this.ctx.from.name + '</span>');
             return this;
         }
     });
