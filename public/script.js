@@ -20,7 +20,7 @@ c4urself.comments = (function (Backbone, $) {
     // the endpoint and give the collection some guidance
     // with 'parse' on where to find the array of objects
     var CommentList = Backbone.Collection.extend({
-        url: 'http://graph.facebook.com/comments?id=http://www.c4urself.com/mf/52455707/dfr_tshirt',
+        url: 'http://graph.facebook.com/comments?id=http://www.cnn.com/',
 
         model: Comment,
 
