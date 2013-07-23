@@ -1,10 +1,10 @@
 // Add a namespace, always good practice
-window.cafepress = window.cafepress || {};
+window.c4urself = window.c4urself || {};
 
 // Self-invoking function which is saved in the
 // comments object, the only thing exposed in the
 // global (window) namespace
-cafepress.comments = (function (Backbone, $) {
+c4urself.comments = (function (Backbone, $) {
 
     // Make a model - a container to hold our comments
     // The fields in this model are automatically
@@ -20,7 +20,7 @@ cafepress.comments = (function (Backbone, $) {
     // the endpoint and give the collection some guidance
     // with 'parse' on where to find the array of objects
     var CommentList = Backbone.Collection.extend({
-        url: 'http://graph.facebook.com/comments?id=http://www.cafepress.com/mf/52455707/dfr_tshirt',
+        url: 'http://graph.facebook.com/comments?id=http://www.c4urself.com/mf/52455707/dfr_tshirt',
 
         model: Comment,
 
@@ -111,5 +111,5 @@ cafepress.comments = (function (Backbone, $) {
 // is ready can we start manipulating the dom by injecting Backbone
 // Views.
 jQuery(document).ready(function () {
-    cafepress.comments.init();
+    c4urself.comments.init();
 });
